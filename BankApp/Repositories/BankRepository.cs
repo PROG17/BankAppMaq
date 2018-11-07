@@ -40,10 +40,23 @@ namespace BankApp.Repositories
 
         public List<Customer> Customers { get; set; }
 
+        public bool Contribution(int to, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Withdrawl(int from, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public interface IBankRepository
     {
         List<Customer> Customers { get; set; }
+        bool Contribution(int to, decimal amount);
+        bool Withdrawl(int from, decimal amount);
     }
+
+
 }
