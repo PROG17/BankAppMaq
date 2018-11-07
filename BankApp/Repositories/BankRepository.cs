@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankApp.Repositories
 {
-    public class BankRepository: IBankRepositiry
+    public class BankRepository: IBankRepository
     {
 
         public BankRepository()
@@ -42,7 +42,7 @@ namespace BankApp.Repositories
 
     }
 
-    public interface IBankRepositiry
+    public interface IBankRepository
     {
         List<Customer> Customers { get; set; }
     }

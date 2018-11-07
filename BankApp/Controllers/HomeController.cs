@@ -9,16 +9,16 @@ namespace BankApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBankRepositiry bankRepositiry;
+        private readonly IBankRepository bankRepository;
 
-        public HomeController(IBankRepositiry bankRepositiry)
+        public HomeController(IBankRepository bankRepository)
         {
-            this.bankRepositiry = bankRepositiry;
+            this.bankRepository = bankRepository;
         }
 
         public IActionResult Index()
         {
-            var list = bankRepositiry.Customers;
+            var list = bankRepository.Customers;
 
             return View(list);
         }
