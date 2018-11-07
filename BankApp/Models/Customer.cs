@@ -7,7 +7,7 @@ namespace BankApp.Models
 {
     public class Customer
     {
-        public string CustomerNumber { get; set; }
+        public int CustomerNumber { get; set; }
 
         public string Name { get; set; }
 
