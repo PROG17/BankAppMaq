@@ -1,7 +1,27 @@
 ﻿
+@model List<BankApp.Models.Customer>;
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>BankAppMaq</h2>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <h3>Customer number: @item.CustomerNumber, Customer name: @item.Name</h3>
+            <ul>
+                @foreach (var acc in item.Accounts)
+                {
+                    <li>
+                        <p>Account number: @acc.AccountNumber, Balance: @acc.Balance</p>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+
 
