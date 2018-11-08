@@ -1,4 +1,5 @@
 ﻿using BankApp.Models;
+using BankApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,17 @@ namespace BankApp.Repositories
 
         public BankRepository()
         {
+
+            var acc1 = new Account() { AccountNumber = 11, Balance = 1500 };
+            var acc2 = new Account() { AccountNumber = 12, Balance = 9500 };
+            var acc3 = new Account() { AccountNumber = 21, Balance = 150000 };
+            var acc4 = new Account() { AccountNumber = 22, Balance = 50000 };
+
+            Accounts = new List<Account>()
+            {
+                acc1, acc2, acc3, acc4
+            };
+
             Customers = new List<Customer>()
             {
                 new Customer()
@@ -19,8 +31,7 @@ namespace BankApp.Repositories
                     CustomerNumber = 1,
                     Accounts = new List<Account>()
                     {
-                        new Account() {AccountNumber = 11, Balance = 1500},
-                        new Account() {AccountNumber = 12, Balance = 9500}
+                        acc1, acc2
                     }
                 },
                 new Customer()
@@ -29,8 +40,7 @@ namespace BankApp.Repositories
                     CustomerNumber = 2,
                     Accounts = new List<Account>()
                     {
-                        new Account() {AccountNumber = 21, Balance = 150000},
-                        new Account() {AccountNumber = 22, Balance = 50000}
+                        acc3, acc4
                     }
                 }
 
@@ -39,23 +49,41 @@ namespace BankApp.Repositories
         }
 
         public List<Customer> Customers { get; set; }
+        public List<Account> Accounts { get; set; }
 
-        public bool Contribution(int to, decimal amount)
+
+        public bool Contribution(BankViewModel vm)
         {
+
             throw new NotImplementedException();
         }
 
-        public bool Withdrawl(int from, decimal amount)
+        public Account GetSingleAccount(int accountNumber)
         {
-            throw new NotImplementedException();
+            return Accounts.SingleOrDefault(x => x.AccountNumber == accountNumber);
+        }
+
+        public bool Withdrawl(BankViewModel vm)
+        {
+            if(vm.Account.Balance - vm.AmountToTransfer < 0)
+            {
+                vm.Message = "To big amount";
+                return false;
+            } 
+
+            vm.Account.Balance = vm.Account.Balance - vm.AmountToTransfer;
+            vm.Message = $"Withdrawl succesful! New balance = {vm.Account.Balance}";
+            return true;
         }
     }
 
     public interface IBankRepository
     {
         List<Customer> Customers { get; set; }
-        bool Contribution(int to, decimal amount);
-        bool Withdrawl(int from, decimal amount);
+        List<Account> Accounts { get; set; }
+        Account GetSingleAccount(int accountNumber);
+        bool Contribution(BankViewModel vm);
+        bool Withdrawl(BankViewModel vm);
     }
 
 

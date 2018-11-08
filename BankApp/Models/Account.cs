@@ -7,6 +7,8 @@ namespace BankApp.Models
 {
     public class Account
     {
+        public int CustomerNumber { get; set; }
+
         public int AccountNumber { get; set; }
 
         public decimal Balance { get; set; }

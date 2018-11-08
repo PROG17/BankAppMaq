@@ -2,20 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BankApp.Repositories;
+using BankApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankApp.Controllers
 {
     public class BankController : Controller
     {
-        public IActionResult Index()
+        private readonly IBankRepository bankRepository;
+
+        public BankController(IBankRepository bankRepository)
         {
-            return View();
+            this.bankRepository = bankRepository;
         }
 
-        public IActionResult Contribution(int to, decimal amount)
+        public IActionResult Index()
         {
-            return View();
+            var model = new BankViewModel() { TransferOk = true};
+
+            return View(model);
+        }
+
+        public IActionResult Contribution(BankViewModel vm)
+        {
+            vm.Account = bankRepository
+                .Accounts
+                .SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
+
+            vm.TransferOk = bankRepository.Contribution(vm);
+
+            return View(nameof(Index), vm);
+        }
+
+        public IActionResult Withdrawl(BankViewModel vm)
+        {
+            vm.Account = bankRepository
+                .Accounts
+                .SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
+
+            vm.TransferOk = bankRepository.Withdrawl(vm);
+
+            return View(nameof(Index), vm);
         }
     }
 }
