@@ -54,8 +54,9 @@ namespace BankApp.Repositories
 
         public bool Contribution(BankViewModel vm)
         {
-
-            throw new NotImplementedException();
+            vm.Account.Balance = vm.Account.Balance + vm.AmountToTransfer;
+            vm.Message = $"Contribution succesful! New balance = {vm.Account.Balance}";
+            return true;
         }
 
         public Account GetSingleAccount(int accountNumber)

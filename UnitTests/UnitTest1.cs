@@ -24,5 +24,42 @@ namespace UnitTests
             // assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(900, 200)]
+        [InlineData(100, 100)]
+        public void Withdrawl_Amount_CheckBalance(decimal amount, decimal expected)
+        {
+            // arrange
+            var account = new Account() { Balance = 200 };
+            var vm = new BankViewModel() { Account = account, AmountToTransfer = amount };
+            var bank = new BankRepository();
+
+            // act
+            bank.Withdrawl(vm);
+
+            var actual = vm.Account.Balance; 
+
+            // assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(900, 1100)]
+        [InlineData(100, 300)]
+        public void Contribution_Amount_CheckBalance(decimal amount, decimal expected)
+        {
+            // arrange
+            var account = new Account() { Balance = 200 };
+            var vm = new BankViewModel() { Account = account, AmountToTransfer = amount };
+            var bank = new BankRepository();
+
+            // act
+            bank.Contribution(vm);
+            var actual = vm.Account.Balance;
+
+            // assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
