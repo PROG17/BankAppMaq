@@ -26,10 +26,6 @@ namespace BankApp.Controllers
 
         public IActionResult Contribution(BankViewModel vm)
         {
-            vm.Account = bankRepository
-                .Accounts
-                .SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
-
             vm.TransferOk = bankRepository.Contribution(vm);
 
             return View(nameof(Index), vm);
@@ -37,10 +33,6 @@ namespace BankApp.Controllers
 
         public IActionResult Withdrawl(BankViewModel vm)
         {
-            vm.Account = bankRepository
-                .Accounts
-                .SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
-
             vm.TransferOk = bankRepository.Withdrawl(vm);
 
             return View(nameof(Index), vm);

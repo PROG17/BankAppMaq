@@ -51,22 +51,37 @@ namespace BankApp.Repositories
         public List<Customer> Customers { get; set; }
         public List<Account> Accounts { get; set; }
 
+        public bool CheckIfAccountExists(int accountNumber)
+        {
+            return Accounts.Any(x => x.AccountNumber == accountNumber);
+        }
 
         public bool Contribution(BankViewModel vm)
         {
+            if(!CheckIfAccountExists(vm.Account.AccountNumber))
+            {
+                vm.Message = "Account number does not exist, please try again!";
+                return false;
+            }
+
+            vm.Account = Accounts.SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
+
             vm.Account.Balance = vm.Account.Balance + vm.AmountToTransfer;
             vm.Message = $"Contribution succesful! New balance = {vm.Account.Balance}";
             return true;
         }
 
-        public Account GetSingleAccount(int accountNumber)
-        {
-            return Accounts.SingleOrDefault(x => x.AccountNumber == accountNumber);
-        }
-
         public bool Withdrawl(BankViewModel vm)
         {
-            if(vm.Account.Balance - vm.AmountToTransfer < 0)
+            if (!CheckIfAccountExists(vm.Account.AccountNumber))
+            {
+                vm.Message = "Account number does not exist, please try again!";
+                return false;
+            }
+
+            vm.Account = Accounts.SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
+
+            if (vm.Account.Balance - vm.AmountToTransfer < 0)
             {
                 vm.Message = "To big amount";
                 return false;
@@ -82,7 +97,7 @@ namespace BankApp.Repositories
     {
         List<Customer> Customers { get; set; }
         List<Account> Accounts { get; set; }
-        Account GetSingleAccount(int accountNumber);
+        bool CheckIfAccountExists(int accountNumber);
         bool Contribution(BankViewModel vm);
         bool Withdrawl(BankViewModel vm);
     }
