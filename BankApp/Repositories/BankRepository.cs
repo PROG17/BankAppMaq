@@ -64,6 +64,12 @@ namespace BankApp.Repositories
                 return false;
             }
 
+            if (vm.AmountToTransfer == 0)
+            {
+                vm.Message = "Amount to transfer incorrect";
+                return false;
+            }
+
             vm.Account = Accounts.SingleOrDefault(x => x.AccountNumber == vm.Account.AccountNumber);
 
             vm.Account.Balance = vm.Account.Balance + vm.AmountToTransfer;
@@ -86,6 +92,12 @@ namespace BankApp.Repositories
                 vm.Message = "To big amount";
                 return false;
             } 
+
+            if(vm.AmountToTransfer == 0)
+            {
+                vm.Message = "Amount to transfer incorrect";
+                return false;
+            }
 
             vm.Account.Balance = vm.Account.Balance - vm.AmountToTransfer;
             vm.Message = $"Withdrawl succesful! New balance = {vm.Account.Balance}";

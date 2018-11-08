@@ -8,16 +8,24 @@ namespace UnitTests
 {
     public class UnitTest1
     {
+        private readonly BankRepository bank;
+        private readonly Account account;
+
+        public UnitTest1()
+        {
+            account = new Account() { AccountNumber = 900, Balance = 200 };
+            bank = new BankRepository();
+            bank.Accounts.Add(account);
+        }
+
         [Theory]
         [InlineData(900, false)]
         [InlineData(100, true)]
         public void Withdrawl_Amount_ReturnTrueOrFalse(decimal amount, bool expected) 
         {
             // arrange
-            var account = new Account() { Balance = 200 };
             var vm = new BankViewModel() { Account = account, AmountToTransfer = amount };
-            var bank = new BankRepository();
-            
+
             // act
             var actual = bank.Withdrawl(vm);
 
@@ -31,9 +39,7 @@ namespace UnitTests
         public void Withdrawl_Amount_CheckBalance(decimal amount, decimal expected)
         {
             // arrange
-            var account = new Account() { Balance = 200 };
             var vm = new BankViewModel() { Account = account, AmountToTransfer = amount };
-            var bank = new BankRepository();
 
             // act
             bank.Withdrawl(vm);
@@ -50,9 +56,7 @@ namespace UnitTests
         public void Contribution_Amount_CheckBalance(decimal amount, decimal expected)
         {
             // arrange
-            var account = new Account() { Balance = 200 };
             var vm = new BankViewModel() { Account = account, AmountToTransfer = amount };
-            var bank = new BankRepository();
 
             // act
             bank.Contribution(vm);
