@@ -1,0 +1,24 @@
+﻿
+@model BankApp.ViewModels.BankViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Contribution/Withdrawl</h2>
+
+<a asp-controller="Home" asp-action="Index">Go back</a>
+
+<p>Message: @Model.Message</p>
+
+<form asp-controller="Bank">
+    <label>Account number</label>
+    <input asp-for="@Model.Account.AccountNumber" min="1" />
+    <label>Amount to transfer</label>
+    <input asp-for="@Model.AmountToTransfer" min="1" />
+    <button asp-action="Contribution">Contribution</button>
+    <button asp-action="Withdrawl">Withdrawl</button>
+</form>
+
+
+
