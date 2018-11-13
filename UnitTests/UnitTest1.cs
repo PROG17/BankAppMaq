@@ -20,6 +20,7 @@ namespace UnitTests
 
         [Theory]
         [InlineData(900, false)]
+        [InlineData(-100, false)]
         [InlineData(100, true)]
         public void Withdrawl_Amount_ReturnTrueOrFalse(decimal amount, bool expected) 
         {
@@ -36,6 +37,7 @@ namespace UnitTests
         [Theory]
         [InlineData(900, 200)]
         [InlineData(100, 100)]
+        [InlineData(-100, 200)]
         public void Withdrawl_Amount_CheckBalance(decimal amount, decimal expected)
         {
             // arrange
@@ -53,6 +55,7 @@ namespace UnitTests
         [Theory]
         [InlineData(900, 1100)]
         [InlineData(100, 300)]
+        [InlineData(-100, 200)]
         public void Contribution_Amount_CheckBalance(decimal amount, decimal expected)
         {
             // arrange

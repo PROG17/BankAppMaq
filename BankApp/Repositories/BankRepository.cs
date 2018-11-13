@@ -64,7 +64,7 @@ namespace BankApp.Repositories
                 return false;
             }
 
-            if (vm.AmountToTransfer == 0)
+            if (vm.AmountToTransfer <= 0)
             {
                 vm.Message = "Amount to transfer incorrect";
                 return false;
@@ -89,11 +89,11 @@ namespace BankApp.Repositories
 
             if (vm.Account.Balance - vm.AmountToTransfer < 0)
             {
-                vm.Message = "To big amount";
+                vm.Message = "Too big amount";
                 return false;
             } 
 
-            if(vm.AmountToTransfer == 0)
+            if(vm.AmountToTransfer <= 0)
             {
                 vm.Message = "Amount to transfer incorrect";
                 return false;
