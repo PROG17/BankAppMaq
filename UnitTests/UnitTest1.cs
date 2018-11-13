@@ -2,6 +2,7 @@ using BankApp.Models;
 using BankApp.Repositories;
 using BankApp.ViewModels;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace UnitTests
@@ -64,6 +65,23 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(500,true)]
+        [InlineData(600,false)]
+        [InlineData(0,false)]
+        [InlineData(-20,false)]
+        public void Account_Transfer_Test(decimal amount, bool expectedValue)
+        {
+            var accountFrom = new Account {AccountNumber = 1, Balance = 500};
+            var accountTo = new Account {AccountNumber = 2, Balance = 1500};
+            bank.Accounts.Add(accountFrom);
+            bank.Accounts.Add(accountTo);
+
+            var actualValue = bank.Accounts.First(x => x.AccountNumber == 1).Transfer(accountTo, amount);
+
+            Assert.Equal(expectedValue, actualValue);
         }
     }
 }
