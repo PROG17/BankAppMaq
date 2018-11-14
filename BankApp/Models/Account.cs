@@ -12,5 +12,17 @@ namespace BankApp.Models
         public int AccountNumber { get; set; }
 
         public decimal Balance { get; set; }
+
+        public bool Transfer(Account account, decimal amount)
+        {
+            if (amount > 0 && account != null && Balance >= amount)
+            {
+                Balance -= amount;
+                account.Balance += amount;
+                return true;
+            }
+
+            return false;
+        }
     }
 }

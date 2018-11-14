@@ -1,0 +1,18 @@
+﻿@model BankApp.ViewModels.TransferViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<a asp-controller="Home" asp-action="Index">Start</a> &nbsp; <a asp-controller="Bank" asp-action="Index">Go to Contribution/Withdrawl</a><br/>
+<p>Message: @(ViewData["Message"] != null ? ViewData["Message"].ToString() : "")</p>
+<br />
+<form asp-controller="Transfer" asp-action="Transfer">
+    <label asp-for="From"></label><br />
+    <input type="text" asp-for="From" value="" /><br /><br />
+    <label asp-for="To"></label><br />
+    <input type="text" asp-for="To" value="" /><br /><br />
+    <label asp-for="Amount"></label><br />
+    <input type="number" asp-for="Amount" min="1" value="" /><br /><br />
+    <button type="submit">Transfer</button>
+
+</form>
+
