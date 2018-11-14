@@ -86,5 +86,19 @@ namespace UnitTests
 
             Assert.Equal(expectedValue, actualValue);
         }
+
+        [Fact]
+        public void Transfer_Amount_Correct()
+        {
+            var accountFrom = new Account { AccountNumber = 1, Balance = 500 };
+            var accountTo = new Account { AccountNumber = 2, Balance = 1500 };
+            bank.Accounts.Add(accountFrom);
+            bank.Accounts.Add(accountTo);
+
+            accountFrom.Transfer(accountTo, 400);
+
+            Assert.True(accountFrom.Balance == 100);
+            Assert.True(accountTo.Balance == 1900);
+        }
     }
 }
